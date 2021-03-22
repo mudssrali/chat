@@ -1,36 +1,18 @@
 import React from 'react'
 
-export interface Props {
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-  onBlur: (event: React.FocusEvent<HTMLInputElement>) => void
+export interface Props extends React.HTMLProps<HTMLInputElement> {
   error?: string
-  value: string
-  label: string
-  placeholder: string
-  name: string
 }
 
-export const TextField: React.FC<Props> = ({
-  onChange,
-  onBlur,
-  error,
-  value,
-  label,
-  placeholder,
-  name,
-}) => {
+export const TextField: React.FC<Props> = ({error, ...rest}) => {
   return (
     <div className="mb-6">
-      <label htmlFor={name} className="block mb-2 text-left text-gray-500 font-semibold">
-        {label}
+      <label htmlFor={rest.name} className="block mb-2 text-left text-gray-500 font-semibold">
+        {rest.label}
       </label>
       <input
         type="text"
-        name={name}
-        value={value}
-        placeholder={placeholder}
-        onChange={onChange}
-        onBlur={onBlur}
+        {...rest}
         className={
           'w-full p-3 placeholder-gray-300 border border-gray-200 rounded-md shadow-md focus:outline-none focus:ring  focus:ring-opacity-50' +
           (!!error ? ' border-red-300 ring-red-300' : '')
